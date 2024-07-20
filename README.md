@@ -18,7 +18,7 @@ Trabalho de conclusão de curso: Desenvolvimento de um sistema de monitoramento 
 A montagem do circruito pode ser realizada de acordo com a simulação disponível no link:
 [Simulação - Wokwi](https://wokwi.com/projects/403956833013289985)
 ### Firmware
-1. Para utilização do firmware desenvolvido é necessário instalar o micropython no ESP32. O tutorial oficial para instalação se encontra no site oficial do Micropython: [tutorial](https://docs.micropython.org/en/latest/esp32/tutorial/index.html).
+1. Para utilização do firmware desenvolvido é necessário instalar o micropython no ESP32. O tutorial oficial para instalação se encontra no site oficial do Micropython: [Tutorial](https://docs.micropython.org/en/latest/esp32/tutorial/index.html).
 2. Após a intalação, copie os arquivos da pasta Dispositivo/firmware para o ESP32.
 3. Ajuste o valor das variáveis do arquivo "config.json" de acordo com as suas credenciais de rede.
 ### Caixa (Opcional):

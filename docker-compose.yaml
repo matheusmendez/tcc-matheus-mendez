@@ -40,6 +40,7 @@ services:
     environment:
       DB_URL: postgresql+psycopg2://$POSTGRES_USER:$POSTGRES_PASSWORD@flask_db:5432/$POSTGRES_DB
       SECRET_KEY: $SECRET_KEY
+      DEBUG: $DEBUG
       MQTT_BROKER_PORT: $MQTT_BROKER_PORT
       MQTT_BROKER_URL: mqtt_broker
       TZ: America/Manaus

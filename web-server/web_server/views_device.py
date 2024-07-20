@@ -36,7 +36,6 @@ def handle_mqtt_message(client, userdata, message):
     data = dict(
         topic=message.topic, payload=json.loads(message.payload.decode())
     )
-    print(json.dumps(data))
 
     if data['topic'] == MQTT_SENSOR_TOPIC:
         new_register = TbRegisters(
@@ -65,7 +64,6 @@ def index():
             .order_by(TbRegisters.created_at.desc())
             .first()
         )
-        print(last_register)
         if last_register:
             data.append(
                 Device(
@@ -95,14 +93,12 @@ def index():
                     'N/A',
                 )
             )
-            print(data)
     return render_template('dashboard.html', title='Painel', data=data)
 
 
 @app.route('/devices')
 def devices():
     lista = TbDevices.query.order_by(TbDevices.id_device)
-    print(lista)
     return render_template('devices.html', title='Dispositivos', devices=lista)
 
 
@@ -111,7 +107,6 @@ def registers():
     if 'user_logged' not in session or session['user_logged'] == None:
         return redirect(url_for('login', next=url_for('registers')))
     lista = TbRegisters.query.order_by(TbRegisters.id)
-    print(lista)
     return render_template(
         'registers.html', title='Registros', registers=lista
     )
@@ -122,7 +117,6 @@ def history():
     if 'user_logged' not in session or session['user_logged'] == None:
         return redirect(url_for('login', next=url_for('history')))
     lista = TbHistory.query.order_by(TbHistory.id)
-    print(lista)
     return render_template('history.html', title='Histórico', registers=lista)
 
 
@@ -197,7 +191,6 @@ def create():
         }
     )
     mqtt.publish(MQTT_CONFIG_TOPIC, device_message)
-    print(f'Mensagem enviada: {device_message}')
 
     flash(f"Dispositivo '{form.id_device.data}' criado com sucesso!")
     return redirect(url_for('devices'))
@@ -234,8 +227,6 @@ def edit(id_device):
 )
 def update():
     form = FormDevice(request.form)
-    print(repr(form))
-    print(repr(form.id_device.data))
     if form.validate_on_submit():
         device = TbDevices.query.filter_by(
             id_device=request.form['id_device']
@@ -247,7 +238,6 @@ def update():
         device.humi_limit_upper = form.humi_limit_upper.data
         device.humi_limit_lower = form.humi_limit_lower.data
         device.humi_limit_setting = form.humi_limit_setting.data
-        print(form.id_device.data)
 
         new_history = TbHistory(
             id_device=device.id_device,

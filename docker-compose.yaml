@@ -1,0 +1,61 @@
+services:
+  mqtt_broker:
+    container_name: mqtt_broker
+    image: eclipse-mosquitto:2
+    restart: always
+    ports:
+      - 1883:1883
+      - 8883:8883
+      - 9001:9001
+    volumes:
+      - ./broker/mosquitto/config:/mosquitto/config
+      - ./broker/mosquitto/data:/mosquitto/data
+      - ./broker/mosquitto/log:/mosquitto/log
+    networks:
+      - mqtt_broker
+  
+  flask_db:
+    container_name: flask_db
+    image: postgres:16
+    env_file: ./.env
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      TZ: America/Manaus
+      PGTZ: America/Manaus
+    volumes:
+      - ./database/pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - mqtt_broker
+    restart: always
+      
+  flask_app:
+    container_name: flask_app
+    build: 
+      context: ./web-server/
+    env_file: ./.env
+    environment:
+      DB_URL: postgresql+psycopg2://$POSTGRES_USER:$POSTGRES_PASSWORD@flask_db:5432/$POSTGRES_DB
+      SECRET_KEY: $SECRET_KEY
+      MQTT_BROKER_PORT: $MQTT_BROKER_PORT
+      MQTT_BROKER_URL: mqtt_broker
+      TZ: America/Manaus
+      PGTZ: America/Manaus
+    ports:
+      - "80:5000"
+    restart: always
+    depends_on:
+      - flask_db
+      - mqtt_broker
+    networks:
+      - mqtt_broker
+  
+networks:
+  mqtt_broker:
+    name: mqtt_broker
+    driver: bridge
+volumes:
+  pgdata:

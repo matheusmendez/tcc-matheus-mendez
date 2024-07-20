@@ -1,0 +1,74 @@
+{% extends "template.html" %}
+{% block conteudo %}
+
+        <a class="btn btn-primary" href="{{ url_for('devices') }}">Dispositivos</a>
+        <br>
+        
+        <div class="container-fluid text-center">
+            <div class="row row-cols-1">
+                <div class="col">
+                    <div id="DEVICES" class="container-fluid py-5">
+                        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+                            
+                            {% for device in data %}
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title title-card">{{ device.id_device }}</h5>
+                                            <p class="card-text text-start fw-bold"><span class="blue-text">Temperatura_MAX: </span>{{ device.temp_limit_upper }}</p>
+                                            <p class="card-text text-start fw-bold"><span class="blue-text">Temperatura_MIN: </span>{{ device.temp_limit_lower }}</p>
+                                            <p class="card-text text-start fw-bold"><span class="blue-text">Temperatura: </span>{{ device.temp_value }}</p>
+                                            <p class="card-text text-start fw-bold"><span class="blue-text">Umidade_MAX: </span>{{ device.humi_limit_upper }}</p>
+                                            <p class="card-text text-start fw-bold"><span class="blue-text">Umidade_MIN: </span>{{ device.humi_limit_lower }}</p>
+                                            <p class="card-text text-start fw-bold"><span class="blue-text">Umidade: </span>{{ device.temp_value }}</p>
+                                            <p class="card-text text-start fw-bold"><span class="blue-text">Atualizado: </span>{{ device.last_update }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+
+        </div>
+        
+        <script src="{{ url_for('static',filename='js/chart.js') }}"></script>
+        <script>
+            {% for rack in data["DEVICES"] %}
+            var ctx = document.getElementById('{{ rack.id_rack }}');
+            console.log('{{ rack.id_rack }}')
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                        labels: [
+                        'Pass',
+                        'Fail'
+                        ],
+                        datasets: [{
+                        label: '{{ rack.id_rack }}',
+                        data: [{{ rack.pass }}, {{ rack.fail }}],
+                        backgroundColor: [
+                            '#00FF00',
+                            '#FF0000'
+                        ],
+                        hoverOffset: 4,
+                        borderWidth: 1,
+                        cuteout: '80%',
+                        circumference: 360,
+                        rotation: 0
+                        }]
+                    }
+              
+            });
+            {% endfor %}
+        </script>
+        <script type="text/javascript">  
+            setTimeout(function(){  
+                location.reload();  
+            },30000);  
+         </script>
+
+{% endblock %}

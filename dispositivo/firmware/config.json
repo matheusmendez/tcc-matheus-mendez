@@ -1,0 +1,18 @@
+{
+    "WIFI_SSID": "ssid",
+    "WIFI_PASSWORD": "password",
+    "MQTT_BROKER": "ip",
+    "MQTT_CLIENT": "sensor_drybox",
+    "MQTT_SENSOR_TOPIC": "sensores/medidas",
+    "MQTT_CONFIG_TOPIC": "sensores/config",
+    "MAC_ADDRESS": "FFFFFFFFFFFF",
+    "TEMP_LIMIT_LOWER": 10.0,
+    "TEMP_LIMIT_UPPER": 23.0,
+    "TEMP_SETTING": 0.0,
+    "HUMI_LIMIT_LOWER": 0.0,
+    "HUMI_LIMIT_UPPER": 10.0,
+    "HUMI_SETTING": 0.0,
+    "DELAY_MEASURE": 20,
+    "DELAY_BUZZER_ON": 15,
+    "DELAY_BUZZER_OFF": 60
+}

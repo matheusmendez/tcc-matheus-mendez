@@ -1,0 +1,39 @@
+{% extends "template.html" %} {% block conteudo %}
+
+<a class="btn btn-primary" href="{{ url_for('index') }}">Painel</a>
+<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-danger" href="{{ url_for('logout') }}">Logout</a>
+<a class="btn btn-primary" href="{{ url_for('devices') }}">Dispositivos</a>
+<a class="btn btn-primary" href="{{ url_for('registers') }}">Registros de Medição</a>
+
+<table class="table table-striped table-responsive table-bordered w80">
+    <thead class="thead-default">
+        <tr>
+            <th>ID_Dispositivo</th>
+            <th>Ação</th>
+            <th>Limite_Superior_Temperatura</th>
+            <th>Limite_Inferior_Temperatura</th>
+            <th>Ajuste_Temperatura</th>
+            <th>Limite_Superior_Umidade</th>
+            <th>Limite_Inferior_Umidade</th>
+            <th>Ajuste_Umidade</th>
+            <th>Registro</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for register in registers %}
+        <tr>
+            <td>{{ register.id_device }}</td>
+            <td>{{ register.action }}</td>
+            <td>{{ register.temp_limit_upper }}</td>
+            <td>{{ register.temp_limit_lower }}</td>
+            <td>{{ register.temp_limit_setting }}</td>
+            <td>{{ register.humi_limit_upper }}</td>
+            <td>{{ register.humi_limit_lower }}</td>
+            <td>{{ register.humi_limit_setting }}</td>
+            <td>{{ register.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

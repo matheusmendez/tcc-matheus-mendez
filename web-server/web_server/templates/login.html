@@ -1,0 +1,27 @@
+{% extends "template.html" %} {% block conteudo %}
+<div class="container py-5" id="container-login">
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul id="messages" class="list-unstyled">
+        {% for message in messages %}
+        <li class="alert alert-success">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <h1>Login</h1>
+    <form method="POST" action="{{ url_for('authenticate') }}">
+        <input type="hidden" name="next" value="{{ next or url_for('devices') }}" />
+        {{ form.csrf_token() }}
+        <div class="form-group">
+            {{ form.userid.label(class="form-label") }} {{ form.userid(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label(class="form-label") }} {{ form.password(class="form-control") }}
+        </div>
+        <div class="form-group buttons">
+            {{ form.login(class="btn btn-primary") }}
+            <a class="btn btn-danger" href="{{ next or url_for('devices') }}">Voltar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "template.html" %} {% block conteudo %}
+<form class="d-flex justify-content-center" action="{{ url_for('create') }}" method="post" enctype="multipart/form-data">
+    <fieldset>
+        {{ form.csrf_token() }}
+        <div class="form-group inputBox">
+            {{ form.id_device.label(class="form-label") }} {{ form.id_device(class="form-control") }}
+        </div>
+        <div class="form-group inputBox">
+            {{ form.temp_limit_upper.label(class="form-label") }} {{ form.temp_limit_upper(class="form-control") }}
+        </div>
+        <div class="form-group inputBox">
+            {{ form.temp_limit_lower.label(class="form-label") }} {{ form.temp_limit_lower(class="form-control") }}
+        </div>
+        <div class="form-group inputBox">
+            {{ form.temp_limit_setting.label(class="form-label") }} {{ form.temp_limit_setting(class="form-control") }}
+        </div>
+        <div class="form-group inputBox">
+            {{ form.humi_limit_upper.label(class="form-label") }} {{ form.humi_limit_upper(class="form-control") }}
+        </div>
+        <div class="form-group inputBox">
+            {{ form.humi_limit_lower.label(class="form-label") }} {{ form.humi_limit_lower(class="form-control") }}
+        </div>
+        <div class="form-group inputBox">
+            {{ form.humi_limit_setting.label(class="form-label") }} {{ form.humi_limit_setting(class="form-control") }}
+        </div>
+        <div class="form-group buttons">
+            {{ form.save(class="btn btn-primary") }}
+            <a class="btn btn-danger" href="{{ url_for('devices') }}">Voltar</a>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "template.html" %} {% block conteudo %}
+
+<a class="btn btn-primary" href="{{ url_for('index') }}">Painel</a>
+<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-danger" href="{{ url_for('logout') }}">Logout</a>
+<a class="btn btn-primary" href="{{ url_for('devices') }}">Dispositivos</a>
+<a class="btn btn-primary" href="{{ url_for('history') }}">Histórico</a>
+
+<table class="table table-striped table-responsive table-bordered w80">
+    <thead class="thead-default">
+        <tr>
+            <th>ID</th>
+            <th>ID_Dispositivo</th>
+            <th>Temperatura</th>
+            <th>Umidade</th>
+            <th>Registro</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for register in registers %}
+        <tr>
+            <td>{{ register.id }}</td>
+            <td>{{ register.id_device }}</td>
+            <td>{{ register.temp_value }}</td>
+            <td>{{ register.humi_value }}</td>
+            <td>{{ register.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

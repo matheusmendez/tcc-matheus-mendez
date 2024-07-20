@@ -1,0 +1,6 @@
+broker/mosquitto/data
+broker/mosquitto/log
+web-server/web_server/__pycache__/
+web-server/.venv
+database/
+.env

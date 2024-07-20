@@ -1,0 +1,41 @@
+{% extends "template.html" %} {% block conteudo %}
+
+<a class="btn btn-primary" href="{{ url_for('index') }}">Painel</a>
+<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-danger" href="{{ url_for('logout') }}">Logout</a>
+<a class="btn btn-primary" href="{{ url_for('new') }}">Novo Dispositivo</a>
+<a class="btn btn-primary" href="{{ url_for('registers') }}">Registros de Medição</a>
+<a class="btn btn-primary" href="{{ url_for('history') }}">Histórico</a>
+
+<table class="table table-striped table-responsive table-bordered w80">
+    <thead class="thead-default">
+        <tr>
+            <th>ID_Dispositivo</th>
+            <th>Limite_Superior_Temperatura</th>
+            <th>Limite_Inferior_Temperatura</th>
+            <th>Ajuste_Temperatura</th>
+            <th>Limite_Superior_Umidade</th>
+            <th>Limite_Inferior_Umidade</th>
+            <th>Ajuste_Umidade</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for device in devices %}
+        <tr>
+            <td>{{ device.id_device }}</td>
+            <td>{{ device.temp_limit_upper }}</td>
+            <td>{{ device.temp_limit_lower }}</td>
+            <td>{{ device.temp_limit_setting }}</td>
+            <td>{{ device.humi_limit_upper }}</td>
+            <td>{{ device.humi_limit_lower }}</td>
+            <td>{{ device.humi_limit_setting }}</td>
+            <td>
+                <a href="{{ url_for('edit', id_device=device.id_device) }}">Editar</a>
+                <a href="{{ url_for('delete', id_device=device.id_device) }}">Deletar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
